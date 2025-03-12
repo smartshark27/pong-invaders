@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://chi5mctsoqv75"]
+
+[ext_resource type="Theme" uid="uid://b81p6sjf015c5" path="res://themes/theme.tres" id="1_8mmvh"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_sav56"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpgwp"]
+size = Vector2(200, 30)
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(360, 1100)
+script = ExtResource("1_sav56")
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_lpgwp")
+
+[node name="HUD" type="Node2D" parent="."]
+
+[node name="Score" type="Label" parent="HUD"]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 330.0
+offset_bottom = 130.0
+theme = ExtResource("1_8mmvh")
+text = "Score: 0"
+
+[node name="High Score" type="Label" parent="HUD"]
+offset_left = 390.0
+offset_top = 30.0
+offset_right = 690.0
+offset_bottom = 130.0
+theme = ExtResource("1_8mmvh")
+text = "High Score: 0"
+horizontal_alignment = 2
