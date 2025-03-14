@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://chi5mctsoqv75"]
+[gd_scene load_steps=9 format=3 uid="uid://chi5mctsoqv75"]
 
 [ext_resource type="Theme" uid="uid://b81p6sjf015c5" path="res://themes/theme.tres" id="1_8mmvh"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sav56"]
+[ext_resource type="Texture2D" uid="uid://ck5bwcw4wsjg8" path="res://art/White_Circle.png" id="3_iohck"]
+[ext_resource type="Script" path="res://scripts/ball.gd" id="3_u0lbk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpgwp"]
 size = Vector2(200, 30)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6ci6d"]
+radius = 19.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65r8u"]
+size = Vector2(139, 1280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rquj4"]
+size = Vector2(719, 68.5)
 
 [node name="Game" type="Node2D"]
 
@@ -46,3 +57,29 @@ offset_bottom = 130.0
 theme = ExtResource("1_8mmvh")
 text = "High Score: 0"
 horizontal_alignment = 2
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(370, 32)
+script = ExtResource("3_u0lbk")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_6ci6d")
+
+[node name="WhiteCircle" type="Sprite2D" parent="Ball"]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_iohck")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-69, 639)
+shape = SubResource("RectangleShape2D_65r8u")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(790, 640)
+shape = SubResource("RectangleShape2D_65r8u")
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(360.5, -34.75)
+shape = SubResource("RectangleShape2D_rquj4")
