@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dncjbr8apprmg"]
+
+[ext_resource type="Theme" uid="uid://b81p6sjf015c5" path="res://themes/theme.tres" id="1_owmtc"]
+[ext_resource type="Script" path="res://scripts/start_button.gd" id="2_5162e"]
+
+[node name="StartButton" type="Button"]
+offset_left = 246.0
+offset_top = 975.0
+offset_right = 502.0
+offset_bottom = 1103.0
+theme = ExtResource("1_owmtc")
+text = "Start"
+script = ExtResource("2_5162e")
