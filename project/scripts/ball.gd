@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal hit_enemy
 
 const INIT_SPEED = 600.0
 const SPEED_INCREASE = 25.0
@@ -18,17 +19,18 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var collider = collision.get_collider()
-		if collider == get_parent().get_node("Player"):
+		if collider.name == "Player":
 			_bounce_off_player(collider)
-		elif collider == get_parent().get_node("Walls"):
+		elif collider.name == "Walls":
 			velocity = velocity.bounce(collision.get_normal())
-		else:
+		else: # Assuming enemy hit
+			hit_enemy.emit(collider)
 			velocity = velocity.bounce(collision.get_normal())
 
 
 func _bounce_off_player(collider):
 	# Increase score. Remove once enemies are added
-	get_parent().increment_score()
+	#get_parent().increment_score()
 
 	# Increase speed
 	speed += SPEED_INCREASE

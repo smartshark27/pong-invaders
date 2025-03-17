@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://chi5mctsoqv75"]
+[gd_scene load_steps=13 format=3 uid="uid://chi5mctsoqv75"]
 
 [ext_resource type="Theme" uid="uid://b81p6sjf015c5" path="res://themes/theme.tres" id="1_8mmvh"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sav56"]
@@ -19,6 +19,12 @@ size = Vector2(139, 1280)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rquj4"]
 size = Vector2(719, 68.5)
+
+[sub_resource type="Curve2D" id="Curve2D_bay80"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 145, 168, 0, 0, 0, 0, 577, 167)
+}
+point_count = 2
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_u68fv")
@@ -91,10 +97,18 @@ shape = SubResource("RectangleShape2D_65r8u")
 position = Vector2(360.5, -34.75)
 shape = SubResource("RectangleShape2D_rquj4")
 
-[node name="EnemySpawner" type="Line2D" parent="."]
-position = Vector2(14, 15)
-points = PackedVector2Array(123, 115, 580, 115)
-width = 0.0
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="EnemySpawnLine" type="Path2D" parent="."]
+curve = SubResource("Curve2D_bay80")
+
+[node name="EnemySpawnPoint" type="PathFollow2D" parent="EnemySpawnLine"]
+position = Vector2(145, 168)
+rotation = -0.00231481
 
 [node name="GameOverMenu" type="Node2D" parent="."]
 visible = false
@@ -115,5 +129,7 @@ offset_bottom = 836.0
 
 [connection signal="game_over" from="Player" to="." method="_on_player_game_over"]
 [connection signal="game_over" from="Player" to="Ball" method="_on_player_game_over"]
+[connection signal="hit_enemy" from="Ball" to="." method="_on_ball_hit_enemy"]
 [connection signal="screen_exited" from="Ball/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="pressed" from="GameOverMenu/StartButton" to="GameOverMenu/StartButton" method="_on_pressed"]
