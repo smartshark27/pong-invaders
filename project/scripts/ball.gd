@@ -18,10 +18,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
+		$BounceSound.play()
 		var collider = collision.get_collider()
 		if collider.name == "Player":
 			_bounce_off_player(collider)
-		elif collider.name == "Walls":
+		elif collider.name == "Walls" or collider.name == "Ceiling":
 			velocity = velocity.bounce(collision.get_normal())
 		else: # Assuming enemy hit
 			hit_enemy.emit(collider)

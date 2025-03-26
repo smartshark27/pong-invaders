@@ -5,19 +5,10 @@ extends Node2D
 const ENEMY_INIT_SPEED = 50
 const ENEMY_INCREMENT_SPEED = 20
 
-var _running = true
+var running = true
+
 var _score = 0
 var _enemy_speed = ENEMY_INIT_SPEED
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func _on_player_game_over() -> void:
@@ -54,11 +45,11 @@ func _spawn_enemy() -> void:
 
 
 func _increment_score():
-	if _running:
+	if running:
 		_score += 1
 		$HUD/Score.text = "Score: " + str(_score)
 
 
 func _game_over() -> void:
-	_running = false
+	running = false
 	$GameOverMenu.show()
