@@ -6,6 +6,8 @@ extends Node2D
 
 const ENEMY_INIT_SPEED = 50
 const ENEMY_INCREMENT_SPEED = 20
+const ENEMY_SPAWN_MINIMUM_WAIT_TIME_SEC = 1.0
+const ENEMY_SPAWN_TIMER_DECREMENT_TIME_SEC = 0.03
 
 var running = true
 
@@ -47,6 +49,11 @@ func _spawn_enemy() -> void:
 	enemy.linear_velocity = Vector2(0, 1.0 * _enemy_speed)
 	# Increment enemy speed after each new spawn
 	_enemy_speed += ENEMY_INCREMENT_SPEED
+
+	# Reduce timer after each new spawn
+	var timer = $EnemyTimer
+	if timer.wait_time > ENEMY_SPAWN_MINIMUM_WAIT_TIME_SEC:
+		timer.wait_time -= ENEMY_SPAWN_TIMER_DECREMENT_TIME_SEC
 
 	$Enemies.add_child(enemy)
 
