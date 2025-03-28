@@ -1,6 +1,8 @@
 extends Node2D
 
-@export var enemy_scene: PackedScene
+@export var red_enemy_scene: PackedScene
+@export var yellow_enemy_scene: PackedScene
+@export var green_enemy_scene: PackedScene
 
 const ENEMY_INIT_SPEED = 50
 const ENEMY_INCREMENT_SPEED = 20
@@ -29,19 +31,24 @@ func _on_ball_hit_enemy(collider: Object) -> void:
 
 
 func _spawn_enemy() -> void:
-	var enemy = enemy_scene.instantiate()
+	# Choose enemy colour randomly
+	var enemy = [
+		red_enemy_scene,
+		yellow_enemy_scene,
+		green_enemy_scene,
+	].pick_random().instantiate()
 
 	# Set enemy to random location on path
 	var spawn_location = $EnemySpawnLine/EnemySpawnPoint
 	spawn_location.progress_ratio = randf()
 	enemy.position = spawn_location.position
 
+	# Set enemy speed
 	enemy.linear_velocity = Vector2(0, 1.0 * _enemy_speed)
-
-	$Enemies.add_child(enemy)
-
 	# Increment enemy speed after each new spawn
 	_enemy_speed += ENEMY_INCREMENT_SPEED
+
+	$Enemies.add_child(enemy)
 
 
 func _increment_score():
