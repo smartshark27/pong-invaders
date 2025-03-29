@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal game_over
 
-const SPEED = 1000.0
+const SPEED = 300.0
 
 
 func _physics_process(delta):
